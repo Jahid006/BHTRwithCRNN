@@ -75,6 +75,14 @@ class DataSourceController(object):
 
     def read_json(self, path, encoding='utf-8'):
         return json.load(open(path, 'r', encoding=encoding))
+    
+    @property
+    def unique_source(self):
+        return self.ids.keys()
+
+    def __repr__(self) -> str:
+        return f"Total Data: {len(self.data)}"+'\n'\
+               + '\n'.join([f"{k}: {v}" for k, v in self.ids.items()])
 
     # def split_data(self, split_names=['train', 'val', 'test'], ratio=[.8, .1, .1]):
     #     self.shuffle()
@@ -96,11 +104,3 @@ class DataSourceController(object):
     #         start += len(_temp.data)
 
     #     return splits
-
-    @property
-    def unique_source(self):
-        return self.ids.keys()
-
-    def __repr__(self) -> str:
-        return f"Total Data: {len(self.data)}"+'\n'\
-               + '\n'.join([f"{k}: {v}" for k, v in self.ids.items()])
